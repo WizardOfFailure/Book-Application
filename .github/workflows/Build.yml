@@ -15,7 +15,7 @@ on:
       - 'client/**'
 jobs:
   build-api:
-    name: Build API application
+    name: Build API/CLIENT 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
