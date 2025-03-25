@@ -13,20 +13,14 @@ on:
     paths:
       - 'api/**'
       - 'client/**'
-
-jobs:
-  build-and-test:
-    name: Build and Test API & Client Application
-
 jobs:
   build-api:
-    name: Build API application
+    name: Build API/CLIENT 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
-
+        
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -57,6 +51,9 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)/api
           python tests/test_book_api_integration.py
+
+      - name: run client
+        run: python client/Client.py
 
       - name: Stop and remove the API container
         run: docker stop api-container && docker rm api-container

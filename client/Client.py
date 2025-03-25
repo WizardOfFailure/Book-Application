@@ -14,6 +14,8 @@ if __name__ == '__main__':
     print("CLIENT APPLICATION STARTING")
     print("now")
     print("work")
+    print("please")
+
 
     book_to_add = {"title": "Python 101", "author": "John Doe"}
     add_book(book_to_add)
