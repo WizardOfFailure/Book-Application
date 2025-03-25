@@ -61,6 +61,8 @@ jobs:
   security:
     name: Security
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # <-- This is important!
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

@@ -17,6 +17,7 @@ if __name__ == '__main__':
     print("please")
     print("YES")
     print("again")
+    print("and again")
     book_to_add = {"title": "Python 101", "author": "John Doe"}
     add_book(book_to_add)
     delete_book(book_to_add)
