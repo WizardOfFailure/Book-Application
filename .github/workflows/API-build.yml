@@ -28,6 +28,9 @@ jobs:
       - name: install API dependencies
         run: pip install -r api/api-requirements.txt
 
+      - name: Set PYTHONPATH environment variable
+        run: echo "PYTHONPATH=$(pwd)/api" >> $GITHUB_ENV
+
       - name: Run API unit test
         run: pytest tests/test_book_api_unittest.py
 
