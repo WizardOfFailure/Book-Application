@@ -58,3 +58,16 @@ jobs:
       - name: Stop and remove the API container
         run: docker stop api-container && docker rm api-container
 
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Init CodeQl
+        uses: github/codeql-action/init@v2
+
+      - name: Perform CodeQl Analysis
+        uses: github/codeql-action/analyze@v2
+
