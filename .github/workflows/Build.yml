@@ -42,7 +42,9 @@ jobs:
           sleep 10  # Wait for the API to be ready
 
       - name: Run integration test for Client
-        run: python tests/test_book_api_integration.py
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/api
+          python tests/test_book_api_integration.py
 
       - name: Stop and remove the API container
         run: docker stop api-container && docker rm api-container
