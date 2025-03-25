@@ -6,11 +6,13 @@ on:
       - feature/**
     paths:
       - 'api/**'
+      - 'client/**'
   pull_request:
     branches:
       - main
     paths:
       - 'api/**'
+      - 'client/**'
 
 jobs:
   build-and-test:
