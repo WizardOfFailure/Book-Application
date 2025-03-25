@@ -32,5 +32,5 @@ jobs:
        #run: pytest tests/test_book_api_unittest.py
 
       - name: build API Docker image
-        run: docker build -t book_api -f Dockerfile ./api
+        run: docker build -t book_api -f Dockerfile .
 
