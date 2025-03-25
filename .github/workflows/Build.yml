@@ -1,5 +1,4 @@
 name: API and Client Build and Test
-
 on:
   push:
     branches:
@@ -35,6 +34,13 @@ jobs:
 
       - name: Build API Docker image
         run: docker build -t book_api -f Dockerfile .
+
+      - name: Install Trivy
+        run: | 
+          curl -sfL https://github.com/aquasecurity/trivy/releases/download/v0.22.0/trivy_0.22.0_Linux-64bit.tar.gz | tar xz -C /usr/local/bin
+
+      - name: Run Trivy Scan on Docker Image
+        run: trivy image book_api
 
       - name: Run API Docker container
         run: |
