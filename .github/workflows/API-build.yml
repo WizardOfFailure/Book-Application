@@ -50,6 +50,8 @@ jobs:
       - name: install API dependencies
         run: pip install -r client/requirements.txt
 
-      - name: run integration test
-        run: python tests/test_book_api_integration.py
+      - name: Run integration test
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/api
+          python tests/test_book_api_integration.py
 
