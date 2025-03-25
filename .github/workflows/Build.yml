@@ -34,7 +34,7 @@ jobs:
         run: pip install -r client/requirements.txt
 
       - name: Build API Docker image
-        run: docker build -t book_api -f Dockerfile ./api
+        run: docker build -t book_api -f Dockerfile .
 
       - name: Run API Docker container
         run: |

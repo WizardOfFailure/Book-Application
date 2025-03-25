@@ -12,6 +12,7 @@ def delete_book(book):
 
 if __name__ == '__main__':
     print("CLIENT APPLICATION STARTING")
+    print("now")
     book_to_add = {"title": "Python 101", "author": "John Doe"}
     add_book(book_to_add)
     delete_book(book_to_add)
