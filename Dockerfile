@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy all application files to the container
 COPY api/ /app/
 
+ENV PYTHONPATH="/app:${PYTHONPATH}"
+
 # Install dependencies
 RUN pip install --no-cache-dir -r api/api-requirements.txt
 
