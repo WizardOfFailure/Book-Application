@@ -34,3 +34,22 @@ jobs:
       - name: build API Docker image
         run: docker build -t book_api -f Dockerfile .
 
+  build-client:
+    name: Build Client Application
+    runs-on: ubuntu-latest
+    needs: build-api
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: install API dependencies
+        run: pip install -r client/requirements.txt
+
+      - name: run integration test
+        run: python tests/test_book_api_integration.py
+
