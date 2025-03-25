@@ -1,16 +1,22 @@
-name: BUILD
 
+name: API and Client Build and Test
 on:
   push:
     branches:
       - feature/**
     paths:
       - 'api/**'
+      - 'client/**'
   pull_request:
     branches:
       - main
     paths:
       - 'api/**'
+      - 'client/**'
+
+jobs:
+  build-and-test:
+    name: Build and Test API & Client Application
 
 jobs:
   build-api:
@@ -20,38 +26,38 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup python
+
+      - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
 
-      - name: install API dependencies
+      - name: Install API dependencies
         run: pip install -r api/api-requirements.txt
 
-      #- name: Run API unit test
-       #run: pytest tests/test_book_api_unittest.py
-
-      - name: build API Docker image
-        run: docker build -t book_api -f Dockerfile .
-
-  build-client:
-    name: Build Client Application
-    runs-on: ubuntu-latest
-    needs: build-api
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Setup python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-
-      - name: install API dependencies
+      - name: Install Client dependencies
         run: pip install -r client/requirements.txt
 
-      - name: Run integration test
+      - name: Build API Docker image
+        run: docker build -t book_api -f Dockerfile .
+
+      - name: Install Trivy
+        run: | 
+          curl -sfL https://github.com/aquasecurity/trivy/releases/download/v0.22.0/trivy_0.22.0_Linux-64bit.tar.gz | tar xz -C /usr/local/bin
+
+      - name: Run Trivy Scan on Docker Image
+        run: trivy image book_api
+
+      - name: Run API Docker container
+        run: |
+          docker run -d -p 5000:5000 --name api-container book_api
+          sleep 10  # Wait for the API to be ready
+
+      - name: Run integration test for Client
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)/api
           python tests/test_book_api_integration.py
+
+      - name: Stop and remove the API container
+        run: docker stop api-container && docker rm api-container
 
